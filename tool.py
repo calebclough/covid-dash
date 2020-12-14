@@ -11,7 +11,12 @@ import s3fs
 longdata = pd.read_csv('s3://coviddash/owid-longitudinal-data.csv')
 scatterdata = pd.read_csv('s3://coviddash/owid-scatter-data.csv')
 
-app = dash.Dash(__name__)
+external_stylesheets = [
+    'https://coviddash.s3-us-west-1.amazonaws.com/format/custom.css',
+]
+
+app = dash.Dash(__name__,external_stylesheets=external_stylesheets)
+
 colors = {
     'background': '#440154',
     'text': '#DCDCDC'
