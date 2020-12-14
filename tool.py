@@ -560,6 +560,7 @@ def updatelinegraph(inputmetric,country):
 
     else:
         return {}
+        
 
 if __name__ == '__main__':
     app.run_server(debug=True)
