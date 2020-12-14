@@ -9,8 +9,13 @@ import plotly.graph_objects as go
 import boto3
 import s3fs
 
-longdata = pd.read_csv('s3://coviddash/owid-longitudinal-data.csv')
-scatterdata = pd.read_csv('s3://coviddash/owid-scatter-data.csv')
+#longdata = pd.read_csv('s3://coviddash/owid-longitudinal-data.csv')
+#scatterdata = pd.read_csv('s3://coviddash/owid-scatter-data.csv')
+
+d = {'col1': [1, 2], 'col2': [3, 4]}
+
+longdata = pd.DataFrame(data=d)
+scatterdata = pd.DataFrame(data=d)
 
 external_stylesheets = [
     'https://coviddash.s3-us-west-1.amazonaws.com/format/custom.css',
@@ -560,7 +565,7 @@ def updatelinegraph(inputmetric,country):
 
     else:
         return {}
-        
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
