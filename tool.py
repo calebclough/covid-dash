@@ -5,9 +5,11 @@ from dash.dependencies import Input, Output
 import plotly.express as px
 import pandas as pd
 import plotly.graph_objects as go
+import boto3
+import s3fs
 
-longdata = pd.read_csv("owid-longitudinal-data.csv")
-scatterdata = pd.read_csv("owid-scatter-data.csv")
+longdata = pd.read_csv('s3://coviddash/owid-longitudinal-data.csv')
+scatterdata = pd.read_csv('s3://coviddash/owid-scatter-data.csv')
 
 app = dash.Dash(__name__)
 colors = {
