@@ -8,14 +8,26 @@ import pandas as pd
 import plotly.graph_objects as go
 import boto3
 import s3fs
+import io
 
-#longdata = pd.read_csv('s3://coviddash/owid-longitudinal-data.csv')
-#scatterdata = pd.read_csv('s3://coviddash/owid-scatter-data.csv')
+S3_Key = os.environ['S3_KEY']
+S3_Secret = os.environ['S3_SECRET']
+S3_Bucket_Name = os.environ['S3_BUCKET_NAME']
+
+longdatakey = "owid-longitudinal-data.csv"
+scatterdatakey = "owid-scatter-data.csv"
+
+s3 = boto3.client('s3',aws_access_key_id=S3_Key,aws_secret_access_key=S3_Secret)
+objlongdata = s3.get_object(Bucket=S3_Bucket_Name,Key=longdatakey)
+objscatterdata = s3.get_object(Bucket=S3_Bucket_Name,Key=scatterdatakey)
+
+longdata = pd.read_csv(io.BytesIO(objlongdata['Body'].read()))
+scatterdata = pd.read_csv(io.BytesIO(objscatterdata['Body'].read()))
 
 d = {'col1': [1, 2], 'col2': [3, 4]}
 
-longdata = pd.DataFrame(data=d)
-scatterdata = pd.DataFrame(data=d)
+#longdata = pd.DataFrame(data=d)
+#scatterdata = pd.DataFrame(data=d)
 
 external_stylesheets = [
     'https://coviddash.s3-us-west-1.amazonaws.com/format/custom.css',
